@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#073b2c">
+  <meta name="description" content="A private prayer list that stays with your Google account.">
+  <title>Prayer Companion</title>
+  <link rel="preconnect" href="https://www.gstatic.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loading" class="loading-screen" aria-live="polite">
+    <div class="brand-mark" aria-hidden="true">🙏</div>
+    <p>Opening Prayer Companion…</p>
+  </div>
+
+  <main id="signed-out" class="sign-in-screen hidden">
+    <section class="welcome-card">
+      <div class="prayer-icon" aria-hidden="true">
+        <span>🙏</span><i></i>
+      </div>
+      <p class="eyebrow">PRAYER COMPANION</p>
+      <h1>A quiet place for the people on your heart.</h1>
+      <p class="welcome-copy">Your prayer list is private and stays with your Google account.</p>
+      <button id="sign-in-button" class="google-button" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.6 12.2c0-.7-.1-1.5-.2-2.2H12v4.3h6a5.1 5.1 0 0 1-2.2 3.3v2.8h3.6c2.1-2 3.2-4.8 3.2-8.2Z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.4-2.6l-3.6-2.8c-1 .7-2.3 1-3.8 1a6.5 6.5 0 0 1-6.1-4.5H2.2V17A11.2 11.2 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.9 14a6.7 6.7 0 0 1 0-4.2V7H2.2a11.2 11.2 0 0 0 0 10L6 14Z"/><path fill="#EA4335" d="M12 5.3c1.6 0 3 .6 4.2 1.7l3.2-3.1A10.7 10.7 0 0 0 2.2 7l3.7 2.8A6.5 6.5 0 0 1 12 5.3Z"/></svg>
+        Continue with Google
+      </button>
+      <p id="sign-in-error" class="error-message" role="alert"></p>
+    </section>
+  </main>
+
+  <div id="app" class="app hidden">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">PRAYER COMPANION</p>
+        <h1 id="page-title">Pray</h1>
+      </div>
+      <button id="account-button" class="avatar-button" type="button" aria-label="Account menu">
+        <img id="user-avatar" alt="" referrerpolicy="no-referrer">
+        <span id="avatar-fallback">T</span>
+      </button>
+      <div id="account-menu" class="account-menu hidden">
+        <strong id="user-name"></strong>
+        <span id="user-email"></span>
+        <button id="sign-out-button" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <section id="pray-view" class="view active-view">
+      <div class="hero-card">
+        <div class="hero-icon" aria-hidden="true"><span>🙏</span><i></i></div>
+        <div><p class="hero-kicker">TODAY</p><h2>Who are we praying for today?</h2></div>
+      </div>
+      <form id="quick-add-form" class="quick-add">
+        <input id="quick-name" type="text" maxlength="80" autocomplete="off" placeholder="Who needs to be added?" aria-label="Name">
+        <button type="submit" aria-label="Add to prayer list">✓</button>
+      </form>
+      <div id="prayer-list" class="card-list"></div>
+      <div id="prayer-empty" class="empty-state hidden">
+        <div aria-hidden="true">♡</div>
+        <h3>Your prayer list is ready</h3>
+        <p>Add a name above whenever someone is on your heart.</p>
+      </div>
+      <blockquote>“Prayer is not about information. It is about transformation.”</blockquote>
+    </section>
+
+    <section id="all-view" class="view">
+      <div class="section-intro"><h2>All names</h2><p>Everyone in your prayer and celebration lists.</p></div>
+      <label class="search-field"><span>⌕</span><input id="search-input" type="search" placeholder="Search names" aria-label="Search names"></label>
+      <div id="all-list" class="card-list"></div>
+      <div id="all-empty" class="empty-state hidden"><div aria-hidden="true">☷</div><h3>No names yet</h3><p>Add your first name from the Pray page.</p></div>
+    </section>
+
+    <section id="celebrate-view" class="view">
+      <div class="celebrate-banner"><span aria-hidden="true">🙏</span><div><b>PTL!</b><p>Celebrate what God is doing.</p></div></div>
+      <div id="celebrate-list" class="card-list"></div>
+      <div id="celebrate-empty" class="empty-state hidden"><div aria-hidden="true">✦</div><h3>Celebrations will appear here</h3><p>Move someone here when there is good news to celebrate.</p></div>
+    </section>
+
+    <section class="share-section">
+      <button id="share-button" class="share-button" type="button"><span aria-hidden="true">↗</span> Share Prayer Companion</button>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-button active" data-view="pray" type="button"><span>🙏</span><b>Pray</b></button>
+      <button class="nav-button" data-view="all" type="button"><span>☷</span><b>All names</b></button>
+      <button class="nav-button" data-view="celebrate" type="button"><span>✦</span><b>Celebrate</b></button>
+    </nav>
+  </div>
+
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <section class="details-modal" role="dialog" aria-modal="true" aria-labelledby="details-title">
+      <button id="close-modal" class="close-button" type="button" aria-label="Close">×</button>
+      <p class="eyebrow">PRAYER DETAILS</p>
+      <h2 id="details-title">Name</h2>
+      <form id="details-form">
+        <label>Name<input id="details-name" type="text" maxlength="80" required></label>
+        <label>Details<textarea id="details-text" rows="6" maxlength="3000" placeholder="Add any details you want to remember…"></textarea></label>
+        <button class="primary-button" type="submit">Save details</button>
+      </form>
+      <div class="modal-actions">
+        <button id="toggle-status-button" class="secondary-button" type="button"></button>
+        <button id="delete-button" class="danger-button" type="button">Remove completely</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
